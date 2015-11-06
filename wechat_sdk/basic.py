@@ -4,8 +4,8 @@ import hashlib
 import requests
 import time
 import json
-import cgi
-from StringIO import StringIO
+import html
+from io import IOBase, StringIO
 
 from xml.dom import minidom
 
@@ -92,7 +92,7 @@ class WechatBasic(object):
             'timestamp': timestamp,
             'url': url,
         }
-        keys = data.keys()
+        keys = list(data.keys())
         keys.sort()
         data_str = '&'.join(['%s=%s' % (key, data[key]) for key in keys])
         signature = hashlib.sha1(data_str.encode('utf-8')).hexdigest()
@@ -104,10 +104,10 @@ class WechatBasic(object):
         :param data: HTTP Request 的 Body 数据
         :raises ParseError: 解析微信服务器数据错误, 数据不合法
         """
-        result = {}
-        if type(data) == unicode:
+#        result = {}
+        if isinstance(data, str):
             data = data.encode('utf-8')
-        elif type(data) == str:
+        elif isinstance(data, bytes):
             pass
         else:
             raise ParseError()
@@ -172,7 +172,7 @@ class WechatBasic(object):
         self._check_parse()
         content = self._transcoding(content)
         if escape:
-            content = cgi.escape(content)
+            content = html.escape(content)
 
         return TextReply(message=self.__message, content=content).render()
 
@@ -385,11 +385,11 @@ class WechatBasic(object):
         :raise HTTPError: 微信api http 请求失败
         """
         self._check_appid_appsecret()
-        if not isinstance(media_file, file) and not isinstance(media_file, StringIO):
-            raise ValueError('Parameter media_file must be file object or StringIO.StringIO object.')
+        if not isinstance(media_file, IOBase) and not isinstance(media_file, StringIO):
+            raise ValueError('Parameter media_file must be file object or io.StringIO object.')
         if isinstance(media_file, StringIO) and extension.lower() not in ['jpg', 'jpeg', 'amr', 'mp3', 'mp4']:
-            raise ValueError('Please provide \'extension\' parameters when the type of \'media_file\' is \'StringIO.StringIO\'.')
-        if isinstance(media_file, file):
+            raise ValueError('Please provide \'extension\' parameters when the type of \'media_file\' is \'io.StringIO\'.')
+        if isinstance(media_file, IOBase):
             extension = media_file.name.split('.')[-1]
             if extension.lower() not in ['jpg', 'jpeg', 'amr', 'mp3', 'mp4']:
                 raise ValueError('Invalid file type.')
@@ -954,8 +954,8 @@ class WechatBasic(object):
         if not data:
             return data
 
-        result = None
-        if isinstance(data, str):
+#        result = None
+        if isinstance(data, bytes):
             result = data.decode('utf-8')
         else:
             result = data
