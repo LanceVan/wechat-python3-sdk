@@ -8,8 +8,8 @@ import random
 import time
 from datetime import timedelta, date
 
-from .exceptions import UnOfficialAPIError, NeedLoginError, LoginError, LoginVerifyCodeError
-from .lib import disable_urllib3_warning
+from wechat_sdk.exceptions import UnOfficialAPIError, NeedLoginError, LoginError, LoginVerifyCodeError
+from wechat_sdk.lib import disable_urllib3_warning
 
 
 class WechatExt(object):

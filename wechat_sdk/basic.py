@@ -9,10 +9,10 @@ from io import IOBase, StringIO
 
 from xml.dom import minidom
 
-from .messages import MESSAGE_TYPES, UnknownMessage
-from .exceptions import ParseError, NeedParseError, NeedParamError, OfficialAPIError
-from .reply import TextReply, ImageReply, VoiceReply, VideoReply, MusicReply, Article, ArticleReply
-from .lib import disable_urllib3_warning, XMLStore
+from wechat_sdk.messages import MESSAGE_TYPES, UnknownMessage
+from wechat_sdk.exceptions import ParseError, NeedParseError, NeedParamError, OfficialAPIError
+from wechat_sdk.reply import TextReply, ImageReply, VoiceReply, VideoReply, MusicReply, Article, ArticleReply
+from wechat_sdk.lib import disable_urllib3_warning, XMLStore
 
 
 class WechatBasic(object):

@@ -2,7 +2,7 @@
 
 import time
 
-from .messages import WechatMessage
+from wechat_sdk.messages import WechatMessage
 
 
 class WechatReply(object):
