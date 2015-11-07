@@ -5,13 +5,13 @@ from setuptools import setup, find_packages
 
 setup(
     name='wechat-sdk',
-    version='0.5.8',
+    version='0.5.9',
     keywords=('wechat', 'sdk', 'wechat sdk'),
     description=u'微信公众平台Python开发包',
     long_description=open("README.rst").read(),
     license='BSD License',
 
-    url='https://github.com/doraemonext/wechat-python-sdk',
+    url='https://github.com/LanceVan/wechat-python-sdk',
     author='doraemonext',
     author_email='doraemonext@gmail.com',
 
